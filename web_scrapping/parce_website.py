@@ -1,10 +1,9 @@
-import requests
+iimport requests
 from bs4 import BeautifulSoup
 import pprint
 import json
 import csv
 import pandas as pd
-
 
 
 path = "/Users/maximsukhoparov/Documents/Tim/программирование/web_scrapping/habr_vacancies.json"
@@ -40,7 +39,7 @@ def all_vacancies() -> dict:
             d1[id]["Skills Required"] = skils1
 
             offon = job.find("div", {"class": "vacancy-card__meta"}).text.split(" • ")
-            offon1 =", ".join(offon)
+            offon1 = ", ".join(offon)
             d1[id]["Remotion"] = offon1
 
             link = job.find("a", {"class": "vacancy-card__title-link"})["href"]
@@ -53,11 +52,13 @@ def all_vacancies() -> dict:
             id += 1
 
     return d1
-'''
+
+
+"""
 with open('habr__vacancies.csv', 'w') as f:
     for key in all_vacancies().keys():
         f.write("%s, %s\n" % (key, all_vacancies()[key]))
-'''
+"""
 df = pd.DataFrame.from_dict(all_vacancies())
-df.to_csv(r'habr__vacancies.csv', index = False, header=True)
+df.to_csv(r"habr__vacancies.csv", index=False, header=True)
 
